@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from .forms import ProfileForm
-from  .models import Profile
+from django.shortcuts import render,redirect
+from .forms import ProfileForm,PostForm
+from  .models import Profile,Projects
 from django.http  import HttpResponse
 
 # Create your views here.
 def home(request):
-    return render(request,'home.html')
+    projects = Projects.objects.all()
+    return render(request,'home.html',{'projects':projects})
 
 
 def search_projects(request):
@@ -23,15 +24,15 @@ def search_projects(request):
 def new_post(request):
     current_user = request.user
     if request.method == 'POST':
-        form = NewImageForm(request.POST, request.FILES)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.user = current_user
             post.save()
-        return redirect('welcome')
+        return redirect('home')
 
     else:
-        form = NewImageForm()
+        form = PostForm()
     return render(request, 'new.html', {"form": form})
 
 
@@ -54,7 +55,7 @@ def new_profile(request):
 def profile(request):
  current_user = request.user
  myprofile = Profile.objects.filter(username = current_user).first()
- return render(request, 'profile.html', { "myprofile":mypicture})
+ return render(request, 'profile.html', { "myprofile":myprofile})
 
 
 def user_projects(request):
