@@ -20,8 +20,19 @@ def search_projects(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+def new_post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+        return redirect('welcome')
 
-
+    else:
+        form = NewImageForm()
+    return render(request, 'new.html', {"form": form})
 
 
 def new_profile(request):
@@ -44,3 +55,11 @@ def profile(request):
  current_user = request.user
  myprofile = Profile.objects.filter(username = current_user).first()
  return render(request, 'profile.html', { "myprofile":mypicture})
+
+
+def user_projects(request):
+    user = User.query.filter_by(username = current_user).first()
+    projects = Project.query.filter_by(user_id = user.id).all()
+    projects_count = Project.count_projects(current_user)
+
+    return render_template(request,'myproject.html', {'user':user, 'projects':projects , 'projects_count':projects_count})

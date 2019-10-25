@@ -26,6 +26,26 @@
       </form>
     </div>
     <!-- search form end -->
+
+
+    <!-- --------------------------- -->
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <li><a href="{%url 'new-post'%}">New Post</a></li>
+          <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button"
+          aria-expanded="false">Account
+          <span class="caret"></span>
+            <ul class="dropdown-menu">
+              <li><a href="{%url 'profile'%}">Profile</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="{%url 'profile'%}">My Blogs</a></li>
+          </ul>
+          </li>
+          <li><a href="/logout">Sign out</a></li>
+          {% else %}
+          <li><a  href="/accounts/login">Login</a></li>
+    <!-- ===================================== -->
   </div>
 </nav>
 </body>
