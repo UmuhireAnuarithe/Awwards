@@ -47,3 +47,19 @@ class ProjectsTestClass(TestCase):
         projects = Projects.objects.all()
         self.assertTrue(len(projects)>0)
     
+
+    def test_update_project(self):
+        self.quotes= Projects(Project_image= 'passion.jpeg',name ='Quotes',description='QUOTES APP',link='https//quote')
+        self.quotes.save_project()
+        quote =Projects.objects.filter(name ='Quotes',).first()
+        update= Projects.objects.filter(id=quote.id).update(name ='Goals')
+        updated = Projects.objects.filter(name ='Goals').first()
+        self.assertNotEqual(quote.name , updated.name)
+
+    def test_delete_project(self):
+        self.quotes= Projects(Project_image= 'passion.jpeg',name ='Quotes',description='QUOTES APP',link='https//quote')
+        self.quotes.save_project()
+        QUOTES = Projects.objects.filter(name ='Quotes').first()
+        quotes = Projects.objects.filter(id =QUOTES.id).delete()
+        quotes = Projects.objects.all()
+        
