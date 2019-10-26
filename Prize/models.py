@@ -45,6 +45,15 @@ class Projects(models.Model):
    def __str__(self):
       return self.name
 
+   def save_project(self):
+      self.save()
+
+   def update_project(self):
+      self.update()
+
+   def delete(self):
+      self.delete()
+
 class Rates(models.Model):
    content = models.IntegerField(default=0)
    usability = models.IntegerField(default=0)

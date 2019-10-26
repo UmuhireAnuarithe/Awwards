@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Profile
+from .models import Profile ,Projects
 # Create your tests here.
 class ProfileTestClass(TestCase):
      # Set up method
@@ -32,3 +32,18 @@ class ProfileTestClass(TestCase):
         tree = Profile.objects.filter(id =nature.id).delete()
         trees =Profile.objects.all()
         
+class ProjectsTestClass(TestCase):
+       # Set up method
+    def setUp(self):
+        self.quotes= Projects(Project_image= 'passion.jpeg',name ='Quotes',description='QUOTES APP',link='https//quote')
+        
+        # Testing  instance
+    def test_instance(self):
+        self.assertTrue(isinstance(self.quotes,Projects))
+
+    def test_save_project(self):
+        self.quotes= Projects(Project_image= 'passion.jpeg',name ='Quotes',description='QUOTES APP',link='https//quote')
+        self.quotes.save_project()
+        projects = Projects.objects.all()
+        self.assertTrue(len(projects)>0)
+    
