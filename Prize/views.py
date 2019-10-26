@@ -13,10 +13,10 @@ def search_projects(request):
 
     if 'project' in request.GET and request.GET["project"]:
         search_term = request.GET.get("project")
-        Ip = Article.search_projects(search_term)
+        IP = Projects.search_projects(search_term)
         message = f"{search_term}"
 
-        return render(request, 'search.html',{"message":message,"projects": IP})
+        return render(request, 'search.html',{"message":message,"projects":IP})
 
     else:
         message = "You haven't searched for any term"
