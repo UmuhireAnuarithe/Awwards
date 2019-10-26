@@ -25,3 +25,10 @@ class ProfileTestClass(TestCase):
         updated = Profile.objects.filter(location='Burera').first()
         self.assertNotEqual(cars.location , updated.location)
 
+    def test_delete_profile(self):
+        self.fina = Profile(Profile_picture = 'passion.jpeg', user_bio ='Passion',location='Musanze',username='anne',email='a@gmail.com')
+        self.fina.save_profile()
+        nature = Profile.objects.filter(username='anne').first()
+        tree = Profile.objects.filter(id =nature.id).delete()
+        trees =Profile.objects.all()
+        
