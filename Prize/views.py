@@ -65,3 +65,19 @@ def user_projects(request):
     project_count = Projects.count_projects(current_user)
 
     return render(request,'myip.html', {'username':username, 'projects':projects , 'project_count':project_count})
+# ---------------------------------------
+def edit_profile(request):
+    # disp_user = request.user
+    current_user=request.user
+    user_edit = Profile.objects.get(username__id=current_user.id)
+    title = "Edit Profile"
+    if request.method =='POST':
+        form=ProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            print('success')
+            return redirect('profile', user_edit.id)
+    else:
+        form=ProfileForm(instance=request.user.profile)
+        print('error')
+    return render(request,'edit_profile.html',{"form":form})

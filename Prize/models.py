@@ -9,8 +9,15 @@ class Profile(models.Model):
    location = models.CharField(max_length =30)
    def __str__(self):
       return self.location
+   def save_profile(self):
+      self.save()
 
-   
+   def update_profile(self):
+      self.update()
+
+   def delete(self):
+      self.delete()
+
 class Projects(models.Model):
    name = models.CharField(max_length =30 )
    description = models.TextField(max_length= 300)
@@ -37,3 +44,11 @@ class Projects(models.Model):
 
    def __str__(self):
       return self.name
+
+class Rates(models.Model):
+   content = models.IntegerField(default=0)
+   usability = models.IntegerField(default=0)
+   design = models.IntegerField(default=0)
+   score = models.IntegerField(default=0)
+   username = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+   project = models.ForeignKey(Projects, null=True)
