@@ -7,8 +7,8 @@ class Profile(models.Model):
    email = models.EmailField()
    user_bio = models.CharField(max_length =30)
    location = models.CharField(max_length =30)
-
-
+   def __str__(self):
+      return self.location
 
    
 class Projects(models.Model):
@@ -35,5 +35,5 @@ class Projects(models.Model):
 
       return project_count
 
-   def __repr__(self):
-      return f'Projects {self.name}'
+   def __str__(self):
+      return self.name
