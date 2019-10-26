@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .forms import ProfileForm,PostForm
-from  .models import Profile,Projects
+from  .models import Profile,Projects,User
 from django.http  import HttpResponse
 
 # Create your views here.
@@ -59,8 +59,9 @@ def profile(request):
 
 
 def user_projects(request):
-    user = User.query.filter_by(username = current_user).first()
-    projects = Project.query.filter_by(user_id = user.id).all()
-    projects_count = Project.count_projects(current_user)
+    current_user = request.user
+    username = User.objects.filter(username = current_user).first()
+    projects = Projects.objects.filter(username_id = username.id).all()
+    projects_count = Projects.count_projects(current_user)
 
-    return render_template(request,'myproject.html', {'user':user, 'projects':projects , 'projects_count':projects_count})
+    return render(request,'myip.html', {'username':username, 'projects':projects , 'projects_count':projects_count})
