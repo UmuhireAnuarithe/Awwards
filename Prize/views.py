@@ -62,6 +62,6 @@ def user_projects(request):
     current_user = request.user
     username = User.objects.filter(username = current_user).first()
     projects = Projects.objects.filter(username_id = username.id).all()
-    projects_count = Projects.count_projects(current_user)
+    project_count = Projects.count_projects(current_user)
 
-    return render(request,'myip.html', {'username':username, 'projects':projects , 'projects_count':projects_count})
+    return render(request,'myip.html', {'username':username, 'projects':projects , 'project_count':project_count})
