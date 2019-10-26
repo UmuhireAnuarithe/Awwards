@@ -16,7 +16,7 @@ class Projects(models.Model):
    description = models.TextField(max_length= 300)
    link = models.CharField(max_length =100)
    username = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
-
+   Project_image= models.ImageField(upload_to = 'pictures/',null=True)
    @classmethod
    def search_projects(cls,search_term):
       projects = cls.objects.filter(name__icontains=search_term)
