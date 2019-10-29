@@ -5,14 +5,21 @@ from django.http  import HttpResponse
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializer import MerchSerializer
+from .serializer import ProfileSerializer,ProjectsSerializer
 
 #........
-class MerchList(APIView):
+class ProfileList(APIView):
     def get(self, request, format=None):
         all_profile = Profile.objects.all()
-        serializers = MerchSerializer(all_profile, many=True)
+        serializers = ProfileSerializer(all_profile, many=True)
         return Response(serializers.data)
+
+class ProjectList(APIView):
+    def get(self, request, format=None):
+        all_projects = Projects.objects.all()
+        serializers = ProjectsSerializer(all_projects, many=True)
+        return Response(serializers.data)
+
 # Create your views here.
 
 def home(request):
@@ -75,9 +82,9 @@ def user_projects(request):
     current_user = request.user
     username = User.objects.filter(username = current_user).first()
     projects = Projects.objects.filter(username_id = username.id).all()
-    project_count = Projects.count_projects(current_user)
+    projects_count = Projects.count_projects(current_user)
 
-    return render(request,'myip.html', {'username':username, 'projects':projects , 'project_count':project_count})
+    return render(request,'myip.html', {"username":username, "projects":projects , "projects_count":projects_count})
 # ---------------------------------------
 def edit_profile(request):
     # disp_user = request.user

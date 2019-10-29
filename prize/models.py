@@ -36,11 +36,11 @@ class Projects(models.Model):
       username = User.objects.filter(username = current_user).first()
       projects = Projects.objects.filter(username_id = username.id).all()
 
-      project_count = 0
+      projects_count = 0
       for project in projects:
-         project_count += 1
+         projects_count += 1
 
-      return project_count
+      return projects_count
 
    def __str__(self):
       return self.name
