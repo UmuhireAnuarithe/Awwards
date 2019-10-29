@@ -3,7 +3,7 @@
 {% block content %}
 {{block.super}}
 <div class="row">
-        {% for project in projects %}
+        {% for project in IP %}
         <h2 class="text-center" style="font-family: 'Shrikhand', cursive;"> {{ project.name }} </h2>
         <img src="{{project.Project_image.url}}" class="img-responsive" alt="Image">
         <p class="text-center">{{ project.description }}</p>

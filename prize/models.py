@@ -34,13 +34,13 @@ class Projects(models.Model):
    def count_projects(cls,current_user):
      
       username = User.objects.filter(username = current_user).first()
-      projects = Projects.objects.filter(username_id = username.id).all()
+      IP = Projects.objects.filter(username_id = username.id).all()
 
-      projects_count = 0
-      for project in projects:
-         projects_count += 1
+      project_count = 0
+      for project in IP:
+         project_count += 1
 
-      return projects_count
+      return project_count
 
    def __str__(self):
       return self.name
