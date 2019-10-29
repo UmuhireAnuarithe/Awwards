@@ -2,13 +2,24 @@ from django.shortcuts import render,redirect
 from .forms import ProfileForm,PostForm
 from  .models import Profile,Projects,User
 from django.http  import HttpResponse
+from django.contrib.auth.decorators import login_required
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import MerchSerializer
 
+#........
+class MerchList(APIView):
+    def get(self, request, format=None):
+        all_profile = Profile.objects.all()
+        serializers = MerchSerializer(all_profile, many=True)
+        return Response(serializers.data)
 # Create your views here.
+
 def home(request):
     projects = Projects.objects.all()
     return render(request,'home.html',{'projects':projects})
 
-
+@login_required(login_url='/accounts/login/')
 def search_projects(request):
 
     if 'project' in request.GET and request.GET["project"]:
@@ -21,6 +32,8 @@ def search_projects(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+
+@login_required(login_url='/accounts/login/')       
 def new_post(request):
     current_user = request.user
     if request.method == 'POST':
@@ -35,7 +48,7 @@ def new_post(request):
         form = PostForm()
     return render(request, 'new.html', {"form": form})
 
-
+@login_required(login_url='/accounts/login/')
 def new_profile(request):
   current_user = request.user
   new_profile = Profile.objects.filter(id=current_user.id)
@@ -51,7 +64,7 @@ def new_profile(request):
   return render(request, 'new-profile.html',{"form":form})
 
 
-# @login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def profile(request):
  current_user = request.user
  myprofile = Profile.objects.filter(username = current_user).first()

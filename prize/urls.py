@@ -10,7 +10,8 @@ urlpatterns=[
     url(r'^projects/$',views.user_projects,name = 'user_projects'),
     url(r'^profile/$',views.profile,name = 'profile'),
     url(r'^accounts/edit-profile/', views.edit_profile, name = 'edit-profile'),
-    url(r'^search/', views.search_projects, name='search_projects')
+    url(r'^search/', views.search_projects, name='search_projects'),
+    url(r'^api/merch/$', views.MerchList.as_view())
 
 ]
 if settings.DEBUG:

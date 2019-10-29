@@ -21,7 +21,7 @@ class Profile(models.Model):
 class Projects(models.Model):
    name = models.CharField(max_length =30 )
    description = models.TextField(max_length= 300)
-   link = models.CharField(max_length =100)
+   link = models.URLField(max_length =100,db_index = True,unique =True,null=True)
    username = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
    Project_image= models.ImageField(upload_to = 'pictures/',null=True)
    @classmethod
@@ -61,3 +61,5 @@ class Rates(models.Model):
    score = models.IntegerField(default=0)
    username = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
    project = models.ForeignKey(Projects, null=True)
+
+
