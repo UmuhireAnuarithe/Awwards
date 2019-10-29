@@ -1,4 +1,4 @@
 virtual/
 *pyc
-requirements.txt
+
 .env
