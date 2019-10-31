@@ -18,4 +18,17 @@
     </div>
     <div class="col-sm-2 col-md-2"></div>
 </div>
+{% for project in projects %}
+<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+
+        <h2 class="text-center" style="font-family: 'Shrikhand', cursive;color:blue;"> {{ project.name }} </h2>
+        
+        <button style="margin-left:130px;"><a href="{{project.link}}" style="color:alicebluew">ViewProject</a></button><br><br>
+        <img src="{{project.Project_image.url}}" class="img-responsive" alt="Image" height="300" width="400">
+        <br>
+        <p class="text-center" style="font-family: 'Lobster', cursive;font-size: 30px;">{{ project.description }}</p>
+</div>
+
+{% endfor %}
  {% endblock %}

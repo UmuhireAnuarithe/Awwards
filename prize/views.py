@@ -75,16 +75,19 @@ def new_profile(request):
 def profile(request):
  current_user = request.user
  myprofile = Profile.objects.filter(username = current_user).first()
- return render(request, 'profile.html', { "myprofile":myprofile})
+ username = User.objects.filter(username = current_user).first()
+ IP = Projects.objects.all()
+ return render(request, 'profile.html', { "myprofile":myprofile,"projects":IP})
 
 
-def user_projects(request):
-    current_user = request.user
-    username = User.objects.filter(username = current_user).first()
-    IP = Projects.objects.filter(username_id = username.id).all()
-    project_count = Projects.count_projects(current_user)
+# def user_projects(request):
+#     current_user = request.user
+#     username = User.objects.filter(username = current_user).first()
+#     # IP = Projects.objects.filter(username_id = username.id).all()
+#     username = User.objects.filter(username = current_user).first()
+#     IP = Projects.objects.all()
 
-    return render(request,'myip.html', {"username":username, "IP":IP, "project_count":project_count})
+#     return render(request,'myip.html', {"username":username, "IP":IP})
 # ---------------------------------------
 def edit_profile(request):
     # disp_user = request.user
