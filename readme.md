@@ -5,7 +5,7 @@ Umuhire Anuarithe
 
 Done on 26 October 2019
 ## Descrption of the project
-
+This an application that allows user to post their projects to rated according to usability , content and Design .The grade should range between 1-10 .
 
 ## Test Driven Development -TDD
 
@@ -25,4 +25,4 @@ Done on 26 October 2019
 
 ## contact
 * Emails:anuarithemuhire@gmail.com
-* Repositority:https://github.com/UmuhireAnuarithe/Awwwards.git
+* Repositority:https://github.com/UmuhireAnuarithe/Awwards.git
