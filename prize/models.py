@@ -54,12 +54,4 @@ class Projects(models.Model):
    def delete(self):
       self.delete()
 
-class Rates(models.Model):
-   content = models.IntegerField(default=0)
-   usability = models.IntegerField(default=0)
-   design = models.IntegerField(default=0)
-   score = models.IntegerField(default=0)
-   username = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
-   project = models.ForeignKey(Projects, null=True)
-
 

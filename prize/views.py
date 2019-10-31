@@ -76,31 +76,28 @@ def profile(request):
  current_user = request.user
  myprofile = Profile.objects.filter(username = current_user).first()
  username = User.objects.filter(username = current_user).first()
- IP = Projects.objects.all()
+ IP = Projects.objects.filter(username = current_user)
+
  return render(request, 'profile.html', { "myprofile":myprofile,"projects":IP})
 
 
-# def user_projects(request):
-#     current_user = request.user
-#     username = User.objects.filter(username = current_user).first()
-#     # IP = Projects.objects.filter(username_id = username.id).all()
-#     username = User.objects.filter(username = current_user).first()
-#     IP = Projects.objects.all()
 
-#     return render(request,'myip.html', {"username":username, "IP":IP})
-# ---------------------------------------
+@login_required(login_url='/accounts/login/')
 def edit_profile(request):
-    # disp_user = request.user
-    current_user=request.user
-    user_edit = Profile.objects.get(username__id=current_user.id)
-    title = "Edit Profile"
-    if request.method =='POST':
-        form=ProfileForm(request.POST,request.FILES,instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            print('success')
-            return redirect('profile', user_edit.id)
-    else:
-        form=ProfileForm(instance=request.user.profile)
-        print('error')
-    return render(request,'edit_profile.html',{"form":form})
+   current_user = request.user
+   if request.method =='POST':
+       if Profile.objects.filter(username=current_user).exists():
+           form = ProfileForm(request.POST,request.FILES,instance=Profile.objects.get(username = current_user))
+       else:
+           form=ProfileForm(request.POST,request.FILES)
+       if form.is_valid():
+           updated=form.save(commit=False)
+           updated.username=current_user
+           updated.save()
+           return redirect('profile',current_user)
+   else:
+       if Profile.objects.filter(username = current_user).exists():
+           form=ProfileForm(instance =Profile.objects.get(username=current_user))
+       else:
+           form=ProfileForm()
+   return render(request,'edit_profile.html',{"form":form})
